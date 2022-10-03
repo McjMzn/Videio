@@ -1,0 +1,53 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="150" d:DesignHeight="300"
+             xmlns:vm="using:VideIO.App.ViewModels"
+             x:Class="VideIO.App.Views.StreamView">
+
+  <Design.DataContext>
+    <vm:StreamViewModel/>
+  </Design.DataContext>
+
+  <UserControl.Styles>
+    <Style Selector="ItemsControl">
+      <Setter Property="Padding" Value="5"/>
+      <Setter Property="Margin" Value="5"/>
+      <Setter Property="CornerRadius" Value="4"/>
+      <Setter Property="MinWidth" Value="40"/>
+    </Style>
+
+  </UserControl.Styles>
+
+      <StackPanel HorizontalAlignment="Stretch">
+
+        <ItemsControl Classes.Selected="{Binding IsSelected}" Classes.Unselected="{Binding !IsSelected}">
+          <TextBlock Text="{Binding StreamInformation.StreamIndex}" TextAlignment="Center"/>
+        </ItemsControl>
+
+
+        <ItemsControl Classes.Selected="{Binding IsSelected}" Classes.Unselected="{Binding !IsSelected}">
+          <i:Icon Value="{Binding Icon}" />
+          <TextBlock Text="{Binding StreamInformation.Format}" TextAlignment="Center"/>
+        </ItemsControl>
+
+
+
+        <ItemsControl Classes.Selected="{Binding IsSelected}" Classes.Unselected="{Binding !IsSelected}">
+          <ToolTip.Tip>
+            <TextBlock Text="{Binding StreamInformation.Title}" />
+          </ToolTip.Tip>
+          <TextBlock Text="{Binding StreamInformation.LanguageCode}" TextAlignment="Center"/>
+        </ItemsControl>
+
+       
+        <ItemsControl HorizontalAlignment="Center" Margin="0" Padding="5, 0">
+          <CheckBox IsChecked="{Binding IsSelected, Mode=OneWay}" Command="{Binding Select}" Margin="5, 0, -2, 0" HorizontalAlignment="Center" />
+        </ItemsControl>
+
+
+      </StackPanel>
+
+</UserControl>

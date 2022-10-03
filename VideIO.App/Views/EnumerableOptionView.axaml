@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="50"
+             xmlns:vm="using:VideIO.App.ViewModels"
+             xmlns:v="using:VideIO.App.Views"
+             xmlns:converters="using:VideIO.App.Converters"
+             x:Class="VideIO.App.Views.EnumerableOptionView">
+
+  <UserControl.Styles>
+
+    <Style Selector="Button.Selected">
+      <Setter Property="Background" Value="#3498DB"/>
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+  </UserControl.Styles>
+  
+  <Design.DataContext>
+    <vm:StreamViewModel/>
+  </Design.DataContext>
+
+    <ItemsControl Items="{Binding Buttons}">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Horizontal"/>
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <v:SelectableButtonView DataContext="{Binding}"/>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>

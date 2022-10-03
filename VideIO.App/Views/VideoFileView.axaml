@@ -1,0 +1,75 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:VideIO.App.ViewModels"
+             xmlns:v="using:VideIO.App.Views"
+             xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+             x:Class="VideIO.App.Views.VideoFileView">
+  <Design.DataContext>
+    <vm:VideoFileViewModel/>
+  </Design.DataContext>
+ 
+  <StackPanel>
+  
+    <WrapPanel>
+      <TextBlock Text="{Binding Ffmpeg.InputFilePath}"/>
+    </WrapPanel>
+
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+
+      <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto">
+        <ItemsControl Items="{Binding Streams}" Padding="0,0,0,20">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel Orientation="Horizontal"/>
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <v:StreamView DataContext="{Binding}"/>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+    </Grid>
+
+    <WrapPanel>
+      <i:Icon Value="mdi-volume-high" Margin="10, 0" Foreground="#2196f3" />
+      <v:EnumerableOptionView DataContext="{Binding AudioCodec}"/>
+
+      <i:Icon Value="mdi-filmstrip" Margin="10, 0" Foreground="#2196f3" />
+      <v:EnumerableOptionView DataContext="{Binding VideoCodec}"/>
+    </WrapPanel>
+
+    <Border Padding="5" Background="Black" Margin="10" CornerRadius="4">
+      <ItemsControl Foreground="White" FontFamily="System">
+        <WrapPanel>
+          <TextBlock Text="ffmpeg.exe"/>
+          <TextBlock Text="{Binding FfmpegArguments}" />
+        </WrapPanel>
+      </ItemsControl>
+    </Border>
+
+    <Button Command="{Binding ConvertCommand}" Margin="10, 0, 0, 0">Convert</Button>
+
+    <TextBox
+        Margin="10"
+        FontFamily="Consolas"
+        IsReadOnly="True"
+        AcceptsReturn="True"
+        TextWrapping="Wrap"
+        Height="100"
+        Foreground="White"
+        Background="Black"
+        Text="{Binding ProcessOutput}"
+        CaretIndex="{Binding ProcessOutput.Length}"
+     />
+    
+  </StackPanel>
+
+</UserControl>

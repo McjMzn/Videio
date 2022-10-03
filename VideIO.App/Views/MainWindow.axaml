@@ -1,0 +1,63 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="VideIO.App.Views.MainWindow"
+        xmlns:vm="using:VideIO.App.ViewModels"
+        xmlns:v="using:VideIO.App.Views"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="VideIO.App"
+        
+        DragDrop.AllowDrop="True"
+>
+
+  <Window.Styles>
+    <Style Selector="Button, ItemsControl.Unselected">
+      <Setter Property="Background" Value="#E3F2FD"/>
+      <Setter Property="Foreground" Value="#2196F3"/>
+    </Style>
+
+    <Style Selector="Button.Selected, ItemsControl.Selected">
+      <Setter Property="Background" Value="#2196f3"/>
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style Selector="Button:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#BBDEFB"/>
+      <Setter Property="Foreground" Value="#2196f3"/>
+    </Style>
+    
+    <Style Selector=".Selected:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#42A5F5"/>
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style Selector="TextBox:focus /template/ Border#PART_BorderElement, TextBox:pointerover /template/ Border#PART_BorderElement">
+      <Setter Property="Background" Value="Black"/>
+      <Setter Property="BorderBrush" Value="Transparent"/>
+    </Style>
+
+    <Style Selector="Border.Red">
+      <Setter Property="Background" Value="Red"/>
+    </Style>
+
+  </Window.Styles>
+  
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+      <ItemsControl Items="{Binding VideoFiles}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Border BoxShadow="3 3 10 0 #888888" Margin="10" Padding="10" CornerRadius="4">
+              <v:VideoFileView DataContext="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+
+</Window>
