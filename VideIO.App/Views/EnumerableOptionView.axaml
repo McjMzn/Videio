@@ -3,10 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="50"
-             xmlns:vm="using:VideIO.App.ViewModels"
-             xmlns:v="using:VideIO.App.Views"
-             xmlns:converters="using:VideIO.App.Converters"
-             x:Class="VideIO.App.Views.EnumerableOptionView">
+             xmlns:vm="using:Videio.App.ViewModels"
+             xmlns:v="using:Videio.App.Views"
+             xmlns:converters="using:Videio.App.Converters"
+             x:Class="Videio.App.Views.EnumerableOptionView">
 
   <UserControl.Styles>
 

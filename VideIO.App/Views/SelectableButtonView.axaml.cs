@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace VideIO.App.Views
+namespace Videio.App.Views
 {
     public partial class SelectableButtonView : UserControl
     {

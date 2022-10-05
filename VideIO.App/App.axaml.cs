@@ -1,10 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using VideIO.App.ViewModels;
-using VideIO.App.Views;
+using Videio.App.ViewModels;
+using Videio.App.Views;
 
-namespace VideIO.App
+namespace Videio.App
 {
     public partial class App : Application
     {

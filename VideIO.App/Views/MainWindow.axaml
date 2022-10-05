@@ -3,11 +3,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="VideIO.App.Views.MainWindow"
-        xmlns:vm="using:VideIO.App.ViewModels"
-        xmlns:v="using:VideIO.App.Views"
+        x:Class="Videio.App.Views.MainWindow"
+        xmlns:vm="using:Videio.App.ViewModels"
+        xmlns:v="using:Videio.App.Views"
         Icon="/Assets/avalonia-logo.ico"
-        Title="VideIO.App"
         
         DragDrop.AllowDrop="True"
 >
@@ -48,6 +47,12 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
+  <StackPanel>
+    <WrapPanel Margin="10,-10,0,0">
+      <TextBlock FontFamily="avares:/Assets/Quicksand-Bold.ttf#Quicksand"  Foreground="#2196f3" TextAlignment="Center" FontWeight="Bold" FontSize="40" Text="vide"/>
+      <TextBlock FontFamily="avares:/Assets/Quicksand-Bold.ttf#Quicksand"  Foreground="#93ccfa" TextAlignment="Center" FontWeight="Bold" FontSize="40" Text="io"/>
+    </WrapPanel>
+
     <ScrollViewer VerticalScrollBarVisibility="Auto">
       <ItemsControl Items="{Binding VideoFiles}">
         <ItemsControl.ItemTemplate>
@@ -59,5 +64,7 @@
         </ItemsControl.ItemTemplate>
       </ItemsControl>
     </ScrollViewer>
+  </StackPanel>
+
 
 </Window>

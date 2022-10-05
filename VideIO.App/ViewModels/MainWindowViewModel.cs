@@ -2,11 +2,11 @@ using Avalonia.Input;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
-namespace VideIO.App.ViewModels
+namespace Videio.App.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private string ffmpegPath = @"C:\Users\mazan\source\repos\VideoRecoder\VideoRecoder\bin\Debug\net6.0\ffmpeg.exe";
+        private string ffmpegPath = @"ffmpeg.exe";
         public MainWindowViewModel()
         {
             this.VideoFiles = new ObservableCollection<VideoFileViewModel>();

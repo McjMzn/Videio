@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="150" d:DesignHeight="300"
-             xmlns:vm="using:VideIO.App.ViewModels"
-             x:Class="VideIO.App.Views.StreamView">
+             xmlns:vm="using:Videio.App.ViewModels"
+             x:Class="Videio.App.Views.StreamView">
 
   <Design.DataContext>
     <vm:StreamViewModel/>
@@ -39,7 +39,7 @@
           <ToolTip.Tip>
             <TextBlock Text="{Binding StreamInformation.Title}" />
           </ToolTip.Tip>
-          <TextBlock Text="{Binding StreamInformation.LanguageCode}" TextAlignment="Center"/>
+          <TextBlock Text="{Binding Details}" TextAlignment="Center"/>
         </ItemsControl>
 
        

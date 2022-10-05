@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VideIO.FFmpeg;
+using Videio.FFmpeg;
 
-namespace VideIO.App.Models
+namespace Videio.App.Models
 {
     public class VideoFileInformation
     {

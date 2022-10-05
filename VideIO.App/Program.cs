@@ -4,7 +4,7 @@ using Projektanker.Icons.Avalonia;
 using Projektanker.Icons.Avalonia.MaterialDesign;
 using System;
 
-namespace VideIO.App
+namespace Videio.App
 {
     internal class Program
     {

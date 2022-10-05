@@ -30,7 +30,7 @@
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VideoRecoder\VideIO.csproj" />
+    <ProjectReference Include="..\Videio\Videio.csproj" />
   </ItemGroup>
   <ItemGroup>
     <UpToDateCheckInput Remove="ViewModels\SelectableButton.axaml" />
@@ -43,4 +43,5 @@
       <DependentUpon>EnumerableOptionView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
+
 </Project>

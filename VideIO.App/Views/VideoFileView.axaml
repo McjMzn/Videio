@@ -3,10 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:vm="using:VideIO.App.ViewModels"
-             xmlns:v="using:VideIO.App.Views"
+             xmlns:vm="using:Videio.App.ViewModels"
+             xmlns:v="using:Videio.App.Views"
              xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
-             x:Class="VideIO.App.Views.VideoFileView">
+             x:Class="Videio.App.Views.VideoFileView">
   <Design.DataContext>
     <vm:VideoFileViewModel/>
   </Design.DataContext>
@@ -39,11 +39,17 @@
     </Grid>
 
     <WrapPanel>
+      <i:Icon Value="mdi-filmstrip" Margin="10, 0" Foreground="#2196f3" />
+      <v:EnumerableOptionView DataContext="{Binding VideoCodec}"/>
+
       <i:Icon Value="mdi-volume-high" Margin="10, 0" Foreground="#2196f3" />
       <v:EnumerableOptionView DataContext="{Binding AudioCodec}"/>
 
-      <i:Icon Value="mdi-filmstrip" Margin="10, 0" Foreground="#2196f3" />
-      <v:EnumerableOptionView DataContext="{Binding VideoCodec}"/>
+      <i:Icon Value="mdi-speaker-multiple" Margin="10, 0" Foreground="#2196f3" />
+      <v:EnumerableOptionView DataContext="{Binding AudioChannels}"/>
+
+      <i:Icon Value="mdi-database" Margin="10, 0" Foreground="#2196f3" />
+      <CheckBox IsChecked="{Binding PreserveMetadata, Mode=OneWay}" Command="{Binding ToggleMetadata}" HorizontalAlignment="Center" />
     </WrapPanel>
 
     <Border Padding="5" Background="Black" Margin="10" CornerRadius="4">

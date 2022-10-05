@@ -1,4 +1,4 @@
-﻿namespace VideIO.FFmpeg.Enums;
+﻿namespace Videio.FFmpeg.Enums;
 
 public enum StreamType
 {

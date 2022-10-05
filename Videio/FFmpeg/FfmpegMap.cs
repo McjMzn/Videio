@@ -1,9 +1,9 @@
-﻿namespace VideIO.FFmpeg;
+﻿namespace Videio.FFmpeg;
 
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using VideIO.FFmpeg.Enums;
+using Videio.FFmpeg.Enums;
 
 public record FfmpegMapSelection
 {

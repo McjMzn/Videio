@@ -2,20 +2,21 @@
 using System;
 using System.Windows.Input;
 
-namespace VideIO.App.ViewModels
+namespace Videio.App.ViewModels
 {
     public class SelectableButtonViewModel<T> : ViewModelBase
-                where T : Enum
     {
         private T content;
         private ICommand command;
         private bool isSelected;
+        private readonly string label;
 
-        public SelectableButtonViewModel(T content, ICommand command, bool isSelected)
+        public SelectableButtonViewModel(T content, ICommand command, bool isSelected, string label = null)
         {
             this.content = content;
             this.command = command;
             this.isSelected = isSelected;
+            this.label = label;
         }
 
         public bool IsSelected
@@ -30,10 +31,11 @@ namespace VideIO.App.ViewModels
             set => this.RaiseAndSetIfChanged(ref this.content, value);
         }
 
+        public string Label => this.label ?? this.content.ToString();
+
         public ICommand Command
         {
             get => this.command;
-            set => this.RaiseAndSetIfChanged(ref this.command, value);
         }
     }
 }

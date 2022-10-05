@@ -1,6 +1,7 @@
-﻿using VideIO.FFmpeg.Enums;
+﻿using System;
+using Videio.FFmpeg.Enums;
 
-namespace VideIO.FFmpeg;
+namespace Videio.FFmpeg;
 
 public record StreamInformation
 {
@@ -10,6 +11,7 @@ public record StreamInformation
     public string LanguageCode { get; set; }
     public string Format { get; set; }
     public string Title { get; set; }
+    public TimeSpan? Duration { get; set; }
 
     public override string ToString()
     {

@@ -1,8 +1,8 @@
-﻿namespace VideIO.FFmpeg;
+﻿namespace Videio.FFmpeg;
 
 using System;
 using System.Diagnostics;
-using VideIO.FFmpeg.Enums;
+using Videio.FFmpeg.Enums;
 
 public interface IFluentFfmpeg
 {
@@ -12,6 +12,6 @@ public interface IFluentFfmpeg
     IFluentFfmpeg UsingAudioChannels(uint audioChannels);
     IFluentFfmpeg SelectStreams(Action<FfmpegMap> mapAction);
     IFluentFfmpeg SaveTo(string outputFile);
-    IFluentFfmpeg PreserveMetadata();
+    IFluentFfmpeg PreservingMetadata(bool preserveMetadata = true);
     void Run(Action<Process> processAction = null);
 }

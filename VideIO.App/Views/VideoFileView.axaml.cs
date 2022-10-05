@@ -4,7 +4,7 @@ using Avalonia.Interactivity;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace VideIO.App.Views
+namespace Videio.App.Views
 {
     public partial class VideoFileView : UserControl
     {

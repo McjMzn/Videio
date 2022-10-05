@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
-using VideIO.FFmpeg;
+using Videio.FFmpeg;
 
-namespace VideIO.App.Command
+namespace Videio.App.Command
 {
     public class ToggleStreamCommand : ICommand
     {

@@ -1,8 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Input;
-using VideIO.App.ViewModels;
+using Videio.App.ViewModels;
 
-namespace VideIO.App.Views
+namespace Videio.App.Views
 {
     public partial class MainWindow : Window
     {

@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using VideIO.App.Command;
-using VideIO.FFmpeg;
-using VideIO.FFmpeg.Enums;
+using Videio.App.Command;
+using Videio.FFmpeg;
+using Videio.FFmpeg.Enums;
 
-namespace VideIO.App.ViewModels
+namespace Videio.App.ViewModels
 {
     public class StreamViewModel : ViewModelBase
     {
@@ -29,6 +29,7 @@ namespace VideIO.App.ViewModels
         public StreamInformation StreamInformation { get; init; }
         public ToggleStreamCommand Select { get; init; }
         public bool IsSelected { get; set; }
+        public string Details => this.StreamInformation.StreamType == StreamType.Video ? this.StreamInformation.Duration.ToString().TrimEnd('0') + '0' : this.StreamInformation.LanguageCode;
 
         public string Icon => this.StreamInformation.StreamType switch
         {

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using VideIO.FFmpeg;
+using Videio.FFmpeg;
 
-namespace VideIO.App.Command
+namespace Videio.App.Command
 {
     class ConvertCommand : ICommand
     {
@@ -32,16 +32,7 @@ namespace VideIO.App.Command
             this.conversionTask = Task.Run(() =>
             {
                 Dispatcher.UIThread.Post(() => this.CanExecuteChanged?.Invoke(this, EventArgs.Empty));
-
-                var inputFile = this.ffmpeg.InputFilePath;
-                var inputFileDirectory = Path.GetDirectoryName(inputFile);
-                var inputFileName = Path.GetFileName(inputFile);
-
-                var outputDirecory = Path.Combine(inputFileDirectory, "Videio");
-                Directory.CreateDirectory(outputDirecory);
-                var outputFile = Path.Combine(outputDirecory, inputFileName);
-
-                this.ffmpeg.SaveTo(outputFile);
+                                
                 this.ffmpeg.Run(this.processAction);
 
                 Dispatcher.UIThread.Post(() => this.CanExecuteChanged?.Invoke(this, EventArgs.Empty));

@@ -1,4 +1,4 @@
-﻿namespace VideIO.FFmpeg;
+﻿namespace Videio.FFmpeg;
 
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using VideIO.FFmpeg.Enums;
+using Videio.FFmpeg;
+using Videio.FFmpeg.Enums;
 
 public class Ffmpeg : IFluentFfmpeg
 {
@@ -18,7 +19,6 @@ public class Ffmpeg : IFluentFfmpeg
     private AudioBitrate? audioBitrate;
     private string outputFile;
     private FfmpegMap map;
-    private bool preserveMetadata;
 
     public event Action<string> ArgumentsChanged;
 
@@ -43,10 +43,11 @@ public class Ffmpeg : IFluentFfmpeg
 
         var streams = Regex.Matches(error, @"Stream #").Cast<Match>().ToList();
         for (var i = 0; i < streams.Count - 1; i++)
-        {
+        {            
             var stream = error.Substring(streams[i].Index, streams[i + 1].Index - streams[i].Index);
-            var match = Regex.Match(stream, @"Stream #(?<inputIndex>\d+):(?<streamIndex>\d+)(\((?<languageCode>\w{3})\))?: (?<streamType>\w+): (?<format>[^,\n]+)");
-            var title = Regex.Match(stream, @"title\s+: (?<title>.*)");
+            var match = Regex.Match(stream, @"Stream #(?<inputIndex>\d+):(?<streamIndex>\d+)(\((?<languageCode>\w{3})\))?: (?<streamType>\w+): (?<format>[^,\n]+)", RegexOptions.IgnoreCase);
+            var title = Regex.Match(stream, @"title\s+: (?<title>.*)", RegexOptions.IgnoreCase);
+            var duration = Regex.Match(stream, @"duration\s+: (?<duration>.*)", RegexOptions.IgnoreCase);
 
             streamInformations.Add(new StreamInformation
             {
@@ -55,7 +56,8 @@ public class Ffmpeg : IFluentFfmpeg
                 LanguageCode = match.Groups["languageCode"].Value.Trim(),
                 StreamType = Enum.Parse<StreamType>(match.Groups["streamType"].Value.Trim()),
                 Format = match.Groups["format"].Value.Trim(),
-                Title = title.Success ? title.Groups["title"].Value.Trim() : null
+                Title = title.Success ? title.Groups["title"].Value.Trim() : null,
+                Duration = duration.Success ? TimeSpan.Parse(duration.Groups["duration"].Value.Trim().TrimEnd('0') + '0') : null
             });
         }
 
@@ -64,13 +66,15 @@ public class Ffmpeg : IFluentFfmpeg
 
     public string CurrentArguments => GetFfmpegArguments();
 
-    public string InputFilePath => this.inputFilePath;
+    public string InputFilePath => inputFilePath;
 
     public IReadOnlyList<StreamInformation> Streams { get; private set; }
 
+    public bool PreserveMetadata { get; private set; }
+
     public static Ffmpeg LoadFrom(string inputFile, string ffmpegExecutablePath = "ffmpeg.exe")
     {
-        var streams = Ffmpeg.IdentifyStreams(inputFile, ffmpegExecutablePath);
+        var streams = IdentifyStreams(inputFile, ffmpegExecutablePath);
         var ffmpeg = new Ffmpeg
         {
             Streams = streams,
@@ -122,16 +126,16 @@ public class Ffmpeg : IFluentFfmpeg
         return InvokeArgumentsChangedAndReturn();
     }
 
-    public IFluentFfmpeg PreserveMetadata()
+    public IFluentFfmpeg PreservingMetadata(bool preserveMetadata = true)
     {
-        this.preserveMetadata = true;
-        return this;
+        PreserveMetadata = preserveMetadata;
+        return InvokeArgumentsChangedAndReturn();
     }
 
     public void Run(Action<Process> processAction = null)
     {
         var arguments = GetFfmpegArguments();
-        var processStartInfo = new ProcessStartInfo(this.executablePath, arguments)
+        var processStartInfo = new ProcessStartInfo(executablePath, arguments)
         {
             UseShellExecute = false,
             RedirectStandardOutput = true,
@@ -167,11 +171,11 @@ public class Ffmpeg : IFluentFfmpeg
 
         argumentsBuilder.Append($"-i \"{inputFilePath}\"");
 
-        AddSpaceAndAppendIfNotEmpty(argumentsBuilder, this.videoCodec is not null ? $"-vcodec {videoCodec.ToString().ToLower()}" : null);
-        AddSpaceAndAppendIfNotEmpty(argumentsBuilder, this.audioCodec is not null ? $"-acodec {this.audioCodec.ToString().ToLower()}" : null);
-        AddSpaceAndAppendIfNotEmpty(argumentsBuilder, this.audioChannels is not null ? $"-ac {audioChannels}" : null);
-        AddSpaceAndAppendIfNotEmpty(argumentsBuilder, this.audioBitrate is not null ? $"-b:a {audioBitrate.ToString().Replace("Bitrate", string.Empty)}" : null);
-        AddSpaceAndAppendIfNotEmpty(argumentsBuilder, this.preserveMetadata ? "-map_metadata 0 -write_id3v2 1" : null);
+        AddSpaceAndAppendIfNotEmpty(argumentsBuilder, videoCodec is not null ? $"-vcodec {videoCodec.ToString().ToLower()}" : null);
+        AddSpaceAndAppendIfNotEmpty(argumentsBuilder, audioCodec is not null ? $"-acodec {audioCodec.ToString().ToLower()}" : null);
+        AddSpaceAndAppendIfNotEmpty(argumentsBuilder, audioChannels is not null && audioChannels > 0 ? $"-ac {audioChannels}" : null);
+        AddSpaceAndAppendIfNotEmpty(argumentsBuilder, audioBitrate is not null ? $"-b:a {audioBitrate.ToString().Replace("Bitrate", string.Empty)}" : null);
+        AddSpaceAndAppendIfNotEmpty(argumentsBuilder, PreserveMetadata ? "-map_metadata 0 -write_id3v2 1" : null);
         AddSpaceAndAppendIfNotEmpty(argumentsBuilder, map?.Build());
         AddSpaceAndAppendIfNotEmpty(argumentsBuilder, outputFile);
 
