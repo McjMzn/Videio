@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Avalonia.Remote.Protocol;
 using Avalonia.Threading;
@@ -48,6 +49,20 @@ namespace Videio.App.ViewModels
                 {
                     Dispatcher.UIThread.Post(() =>
                     {
+                        if (args.Data is null)
+                        {
+                            return;
+                        }
+
+                        var timeText = Regex.Match(args.Data, @"time=(?<time>\S*)");
+                        if (timeText.Success)
+                        {
+                            var time = TimeSpan.Parse(timeText.Groups["time"].Value);
+                            var duration = this.Ffmpeg.Streams.First(s => s.StreamType == StreamType.Video).Duration;
+                            this.Progress = 100 * time / duration.Value;
+                            this.RaisePropertyChanged(nameof(this.Progress));
+                        }
+
                         this.outputBuilder.AppendLine(args.Data);
                         this.RaisePropertyChanged(nameof(this.ProcessOutput));
                     });
@@ -74,6 +89,7 @@ namespace Videio.App.ViewModels
         public List<StreamViewModel> Streams => this.GetStreams();
         public string ProcessOutput => this.outputBuilder?.ToString();
         public bool PreserveMetadata => this.Ffmpeg.PreserveMetadata;
+        public double Progress { get; set; } = 0;
 
         private List<StreamViewModel> GetStreams()
         {
@@ -111,17 +127,17 @@ namespace Videio.App.ViewModels
         private string FormatArguments(string arguments)
         {
             var toProcess = arguments;
-            var builder = new StringBuilder();
+            var builder = new StringBuilder(this.Ffmpeg.ExecutablePath);
             while (toProcess.Count() > 0)
             {
                 var index = toProcess.IndexOf(" -");
-                builder.Append($"{Environment.NewLine}{(index >= 0 ? toProcess.Substring(0, index) : toProcess)}");
+                builder.Append($"{Environment.NewLine}  {(index >= 0 ? toProcess.Substring(0, index) : toProcess)}");
 
 
                 toProcess = index < 0 ? string.Empty : toProcess.Substring(index).TrimStart();
             }
 
-            return builder.ToString();
+            return builder.ToString().Replace($"{this.Ffmpeg.OutputFilePath}", $"{Environment.NewLine}  {this.Ffmpeg.OutputFilePath}");
         }
     }
 }

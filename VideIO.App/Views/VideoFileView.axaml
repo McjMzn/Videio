@@ -55,7 +55,6 @@
     <Border Padding="5" Background="Black" Margin="10" CornerRadius="4">
       <ItemsControl Foreground="White" FontFamily="System">
         <WrapPanel>
-          <TextBlock Text="ffmpeg.exe"/>
           <TextBlock Text="{Binding FfmpegArguments}" />
         </WrapPanel>
       </ItemsControl>
@@ -75,6 +74,8 @@
         Text="{Binding ProcessOutput}"
         CaretIndex="{Binding ProcessOutput.Length}"
      />
+
+    <ProgressBar Value="{Binding Progress}"></ProgressBar>
     
   </StackPanel>
 
