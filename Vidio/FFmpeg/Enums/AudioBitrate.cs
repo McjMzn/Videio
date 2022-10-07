@@ -1,4 +1,4 @@
-﻿namespace Videio.FFmpeg.Enums;
+﻿namespace Vidio.FFmpeg.Enums;
 
 public enum AudioBitrate
 {

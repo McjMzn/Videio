@@ -3,26 +3,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:vm="using:Videio.App.ViewModels"
-             xmlns:v="using:Videio.App.Views"
              xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
-             x:Class="Videio.App.Views.VideoFileView">
+             xmlns:viewModels="clr-namespace:Vidio.App.ViewModels"
+             xmlns:views="clr-namespace:Vidio.App.Views"
+             x:Class="Vidio.App.Views.VideoFileView">
   <Design.DataContext>
-    <vm:VideoFileViewModel/>
+    <viewModels:VideoFileViewModel/>
   </Design.DataContext>
  
   <StackPanel>
   
-    <WrapPanel>
-      <TextBlock Text="{Binding Ffmpeg.InputFilePath}"/>
-    </WrapPanel>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+        <ColumnDefinition Width="Auto"></ColumnDefinition>
+      </Grid.ColumnDefinitions>
+      
+      <TextBlock  Text="{Binding Ffmpeg.InputFilePath}"/>
+      <Button Grid.Column="1" i:Attached.Icon="mdi-window-close" Background="Transparent" Foreground="#2196f3" Command="{Binding CloseCommand}" />
+    </Grid>
 
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
 
-      <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto">
+      <ScrollViewer HorizontalScrollBarVisibility="Auto">
         <ItemsControl Items="{Binding Streams}" Padding="0,0,0,20">
           <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
@@ -31,7 +37,7 @@
           </ItemsControl.ItemsPanel>
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <v:StreamView DataContext="{Binding}"/>
+              <views:StreamView DataContext="{Binding}"/>
             </DataTemplate>
           </ItemsControl.ItemTemplate>
         </ItemsControl>
@@ -40,16 +46,16 @@
 
     <WrapPanel>
       <i:Icon Value="mdi-filmstrip" Margin="10, 0" Foreground="#2196f3" />
-      <v:EnumerableOptionView DataContext="{Binding VideoCodec}"/>
+      <views:EnumerableOptionView DataContext="{Binding VideoCodec}"/>
 
       <i:Icon Value="mdi-volume-high" Margin="10, 0" Foreground="#2196f3" />
-      <v:EnumerableOptionView DataContext="{Binding AudioCodec}"/>
+      <views:EnumerableOptionView DataContext="{Binding AudioCodec}"/>
 
       <i:Icon Value="mdi-speaker-multiple" Margin="10, 0" Foreground="#2196f3" />
-      <v:EnumerableOptionView DataContext="{Binding AudioChannels}"/>
+      <views:EnumerableOptionView DataContext="{Binding AudioChannels}"/>
 
       <i:Icon Value="mdi-database" Margin="10, 0" Foreground="#2196f3" />
-      <CheckBox IsChecked="{Binding PreserveMetadata, Mode=OneWay}" Command="{Binding ToggleMetadata}" HorizontalAlignment="Center" />
+      <CheckBox IsChecked="{Binding PreserveMetadata, Mode=OneWay}" Command="{Binding ToggleMetadataCommand}" HorizontalAlignment="Center" />
     </WrapPanel>
 
     <Border Padding="5" Background="Black" Margin="10" CornerRadius="4">

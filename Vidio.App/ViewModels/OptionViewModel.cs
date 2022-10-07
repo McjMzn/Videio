@@ -1,11 +1,11 @@
-﻿using ReactiveUI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Videio.App.Command;
+using ReactiveUI;
+using Vidio.App.Command;
 
-namespace Videio.App.ViewModels
+namespace Vidio.App.ViewModels
 {
     public class OptionViewModel<T> : ViewModelBase
     {

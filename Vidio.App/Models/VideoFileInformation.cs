@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Videio.FFmpeg;
+﻿using System.Collections.Generic;
+using Vidio.FFmpeg;
 
-namespace Videio.App.Models
+namespace Vidio.App.Models
 {
     public class VideoFileInformation
     {

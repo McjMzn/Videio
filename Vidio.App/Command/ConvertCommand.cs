@@ -1,15 +1,11 @@
-﻿using Avalonia.Threading;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Videio.FFmpeg;
+using Avalonia.Threading;
+using Vidio.FFmpeg;
 
-namespace Videio.App.Command
+namespace Vidio.App.Command
 {
     class ConvertCommand : ICommand
     {

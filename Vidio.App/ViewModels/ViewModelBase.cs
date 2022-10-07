@@ -1,9 +1,6 @@
 using ReactiveUI;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Videio.App.ViewModels
+namespace Vidio.App.ViewModels
 {
     public class ViewModelBase : ReactiveObject
     {

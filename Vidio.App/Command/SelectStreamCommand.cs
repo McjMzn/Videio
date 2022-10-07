@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
-using Videio.FFmpeg;
+using Vidio.FFmpeg;
 
-namespace Videio.App.Command
+namespace Vidio.App.Command
 {
     public class ToggleStreamCommand : ICommand
     {
@@ -10,7 +10,7 @@ namespace Videio.App.Command
 
         public uint StreamIndex { get; }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged { add {} remove{} }
 
         public event Action Toggled;
 

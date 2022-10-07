@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Videio.App.Command
+namespace Vidio.App.Command
 {
     public class ActionCommand : ICommand
     {
         private readonly Action selectAction;
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged {
+            add { }
+            remove { }
+        }
 
         public ActionCommand(Action selectAction)
         {

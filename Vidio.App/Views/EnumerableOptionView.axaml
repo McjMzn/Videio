@@ -3,10 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="50"
-             xmlns:vm="using:Videio.App.ViewModels"
-             xmlns:v="using:Videio.App.Views"
-             xmlns:converters="using:Videio.App.Converters"
-             x:Class="Videio.App.Views.EnumerableOptionView">
+             xmlns:viewModels="clr-namespace:Vidio.App.ViewModels"
+             xmlns:views="clr-namespace:Vidio.App.Views"
+             x:Class="Vidio.App.Views.EnumerableOptionView">
 
   <UserControl.Styles>
 
@@ -18,7 +17,7 @@
   </UserControl.Styles>
   
   <Design.DataContext>
-    <vm:StreamViewModel/>
+    <viewModels:StreamViewModel/>
   </Design.DataContext>
 
     <ItemsControl Items="{Binding Buttons}">
@@ -29,7 +28,7 @@
       </ItemsControl.ItemsPanel>
       <ItemsControl.ItemTemplate>
         <DataTemplate>
-          <v:SelectableButtonView DataContext="{Binding}"/>
+          <views:SelectableButtonView DataContext="{Binding}"/>
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl>

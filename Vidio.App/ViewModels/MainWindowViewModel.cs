@@ -1,8 +1,10 @@
-using Avalonia.Input;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
+using Avalonia.Input;
 
-namespace Videio.App.ViewModels
+namespace Vidio.App.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
@@ -20,9 +22,9 @@ namespace Videio.App.ViewModels
         // Driectly handled in MainWindow's code behind.
         public void OnDrop(object sender, DragEventArgs args)
         {
-            foreach (var file in args.Data.GetFileNames())
+            foreach (var file in args.Data?.GetFileNames() ?? Enumerable.Empty<string>())
             {
-                this.VideoFiles.Add(new VideoFileViewModel(file, this.ffmpegPath));
+                this.VideoFiles.Add(new VideoFileViewModel(file, this.ffmpegPath, viewModel => this.VideoFiles.Remove(viewModel)));
             }
         }
 

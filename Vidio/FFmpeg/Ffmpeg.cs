@@ -1,12 +1,12 @@
-﻿namespace Videio.FFmpeg;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Videio.FFmpeg.Enums;
+using Vidio.FFmpeg.Enums;
+
+namespace Vidio.FFmpeg;
 
 public class Ffmpeg : IFluentFfmpeg
 {
@@ -38,12 +38,13 @@ public class Ffmpeg : IFluentFfmpeg
         var streamInformations = new List<StreamInformation>();
 
         var streams = Regex.Matches(error, @"Stream #").Cast<Match>().ToList();
-        for (var i = 0; i < streams.Count - 1; i++)
+        for (var i = 0; i < streams.Count; i++)
         {            
-            var stream = error.Substring(streams[i].Index, streams[i + 1].Index - streams[i].Index);
+            var stream = i == streams.Count - 1 ? error.Substring(streams[i].Index) : error.Substring(streams[i].Index, streams[i + 1].Index - streams[i].Index);
+            
             var match = Regex.Match(stream, @"Stream #(?<inputIndex>\d+):(?<streamIndex>\d+)(\((?<languageCode>\w{3})\))?: (?<streamType>\w+): (?<format>[^,\n]+)", RegexOptions.IgnoreCase);
             var title = Regex.Match(stream, @"title\s+: (?<title>.*)", RegexOptions.IgnoreCase);
-            var duration = Regex.Match(stream, @"duration[^:]+: (?<duration>.*)", RegexOptions.IgnoreCase);
+            var duration = Regex.Match(stream, @"(\n|\r)+\s+duration[^:]+: (?<duration>.*)", RegexOptions.IgnoreCase);
 
             streamInformations.Add(new StreamInformation
             {

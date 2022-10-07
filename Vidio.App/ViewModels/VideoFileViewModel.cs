@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using Avalonia.Remote.Protocol;
 using Avalonia.Threading;
 using ReactiveUI;
-using Videio.App.Command;
-using Videio.FFmpeg;
-using Videio.FFmpeg.Enums;
+using Vidio.App.Command;
+using Vidio.FFmpeg;
+using Vidio.FFmpeg.Enums;
 
-namespace Videio.App.ViewModels
+namespace Vidio.App.ViewModels
 {
     public class VideoFileViewModel : ViewModelBase
     {
@@ -21,17 +20,19 @@ namespace Videio.App.ViewModels
 
         public VideoFileViewModel() { }
 
-        public VideoFileViewModel(string videoFilePath, string ffmpegExecutablePath)
+        public VideoFileViewModel(string videoFilePath, string ffmpegExecutablePath, Action<VideoFileViewModel> onClose)
         {
             this.Ffmpeg = Ffmpeg.LoadFrom(videoFilePath, ffmpegExecutablePath);
             this.SetOutputFile();
             
             this.Ffmpeg.ArgumentsChanged += (arguments) => this.RaisePropertyChanged(nameof(this.FfmpegArguments));
-            this.Ffmpeg.UsingAudioCodec(FFmpeg.Enums.AudioCodec.Copy).UsingVideoCodec(FFmpeg.Enums.VideoCodec.Copy).PreservingMetadata();
+            this.Ffmpeg.UsingAudioCodec(Vidio.FFmpeg.Enums.AudioCodec.Copy).UsingVideoCodec(Vidio.FFmpeg.Enums.VideoCodec.Copy).PreservingMetadata();
             this.AudioCodec = new OptionViewModel<AudioCodec>(audioCodec => Ffmpeg.UsingAudioCodec(audioCodec), Enum.GetValues(typeof(AudioCodec)).Cast<AudioCodec>());
             this.VideoCodec = new OptionViewModel<VideoCodec>(videoCodec => Ffmpeg.UsingVideoCodec(videoCodec), Enum.GetValues(typeof(VideoCodec)).Cast<VideoCodec>());
             this.AudioChannels = new OptionViewModel<uint>(audioChannels => Ffmpeg.UsingAudioChannels(audioChannels), new Dictionary<uint, string> { [0] = "Copy", [1] = "Mono", [2] = "Stereo", [6] = "5.1" });
 
+            this.CloseCommand = new ActionCommand(() => onClose(this));
+            
             this.ConvertCommand = new ConvertCommand(this.Ffmpeg, process =>
             {
                 this.outputBuilder = new StringBuilder();
@@ -72,7 +73,7 @@ namespace Videio.App.ViewModels
                 process.BeginOutputReadLine();
             });
 
-            this.ToggleMetadata = new ActionCommand(() =>
+            this.ToggleMetadataCommand = new ActionCommand(() =>
             {
                 this.Ffmpeg.PreservingMetadata(!this.Ffmpeg.PreserveMetadata);
                 this.RaisePropertyChanged(nameof(this.PreserveMetadata));
@@ -80,7 +81,8 @@ namespace Videio.App.ViewModels
         }
         
         public ICommand ConvertCommand { get; }
-        public ICommand ToggleMetadata { get; }
+        public ICommand ToggleMetadataCommand { get; }
+        public ICommand CloseCommand { get; }
         public Ffmpeg Ffmpeg { get; }
         public string FfmpegArguments => this.FormatArguments(this.Ffmpeg.CurrentArguments);
         public OptionViewModel<AudioCodec> AudioCodec { get; set; }
@@ -117,7 +119,7 @@ namespace Videio.App.ViewModels
             var inputFileDirectory = Path.GetDirectoryName(inputFile);
             var inputFileName = Path.GetFileName(inputFile);
 
-            var outputDirecory = Path.Combine(inputFileDirectory, "Videio");
+            var outputDirecory = Path.Combine(inputFileDirectory, "Vidio");
             Directory.CreateDirectory(outputDirecory);
             var outputFile = Path.Combine(outputDirecory, inputFileName);
 

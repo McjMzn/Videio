@@ -1,7 +1,7 @@
 ﻿using System;
-using Videio.FFmpeg.Enums;
+using Vidio.FFmpeg.Enums;
 
-namespace Videio.FFmpeg;
+namespace Vidio.FFmpeg;
 
 public record StreamInformation
 {

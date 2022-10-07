@@ -3,9 +3,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Videio.App.Views.MainWindow"
-        xmlns:vm="using:Videio.App.ViewModels"
-        xmlns:v="using:Videio.App.Views"
+        x:Class="Vidio.App.Views.MainWindow"
+        xmlns:viewModels="clr-namespace:Vidio.App.ViewModels"
+        xmlns:views="clr-namespace:Vidio.App.Views"
         Icon="/Assets/avalonia-logo.ico"
         
         DragDrop.AllowDrop="True"
@@ -44,27 +44,32 @@
   </Window.Styles>
   
     <Design.DataContext>
-        <vm:MainWindowViewModel/>
+        <viewModels:MainWindowViewModel/>
     </Design.DataContext>
 
-  <StackPanel>
-    <WrapPanel Margin="10,-10,0,0">
-      <TextBlock FontFamily="avares:/Assets/Quicksand-Bold.ttf#Quicksand"  Foreground="#2196f3" TextAlignment="Center" FontWeight="Bold" FontSize="40" Text="vide"/>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    
+    <WrapPanel Grid.Row="0" Margin="10,-10,0,0">
+      <TextBlock FontFamily="avares:/Assets/Quicksand-Bold.ttf#Quicksand"  Foreground="#2196f3" TextAlignment="Center" FontWeight="Bold" FontSize="40" Text="vid"/>
       <TextBlock FontFamily="avares:/Assets/Quicksand-Bold.ttf#Quicksand"  Foreground="#93ccfa" TextAlignment="Center" FontWeight="Bold" FontSize="40" Text="io"/>
     </WrapPanel>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
       <ItemsControl Items="{Binding VideoFiles}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
             <Border BoxShadow="3 3 10 0 #888888" Margin="10" Padding="10" CornerRadius="4">
-              <v:VideoFileView DataContext="{Binding}"/>
+              <views:VideoFileView DataContext="{Binding}"/>
             </Border>
           </DataTemplate>
         </ItemsControl.ItemTemplate>
       </ItemsControl>
     </ScrollViewer>
-  </StackPanel>
+  </Grid>
 
 
 </Window>

@@ -36,9 +36,6 @@
     <UpToDateCheckInput Remove="ViewModels\SelectableButton.axaml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Views\EnumerableOptionView.axaml.cs">
       <DependentUpon>EnumerableOptionView.axaml</DependentUpon>
     </Compile>

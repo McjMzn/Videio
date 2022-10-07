@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Videio.FFmpeg;
-using Videio.FFmpeg.Enums;
+using Vidio.FFmpeg;
+using Vidio.FFmpeg.Enums;
+
+namespace Vidio;
 
 internal class Program
 {

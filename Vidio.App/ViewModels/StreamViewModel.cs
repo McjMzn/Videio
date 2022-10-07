@@ -1,15 +1,10 @@
-﻿using ReactiveUI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Videio.App.Command;
-using Videio.FFmpeg;
-using Videio.FFmpeg.Enums;
+﻿using System;
+using ReactiveUI;
+using Vidio.App.Command;
+using Vidio.FFmpeg;
+using Vidio.FFmpeg.Enums;
 
-namespace Videio.App.ViewModels
+namespace Vidio.App.ViewModels
 {
     public class StreamViewModel : ViewModelBase
     {
@@ -38,7 +33,8 @@ namespace Videio.App.ViewModels
             StreamType.Subtitle => "mdi-message-text",
             StreamType.Attachements => "mdi-paperclip",
             StreamType.Data => "mdi-database",
-            StreamType.Any => "mdi-infinity"
+            StreamType.Any => "mdi-infinity",
+            _ => throw new NotImplementedException()
         };
     }
 }

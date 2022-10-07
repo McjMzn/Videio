@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace Videio.App.Views
+namespace Vidio.App.Views
 {
     public partial class EnumerableOptionView : UserControl
     {

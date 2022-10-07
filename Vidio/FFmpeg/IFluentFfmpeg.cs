@@ -1,8 +1,8 @@
-﻿namespace Videio.FFmpeg;
-
-using System;
+﻿using System;
 using System.Diagnostics;
-using Videio.FFmpeg.Enums;
+using Vidio.FFmpeg.Enums;
+
+namespace Vidio.FFmpeg;
 
 public interface IFluentFfmpeg
 {

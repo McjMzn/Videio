@@ -3,12 +3,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+             xmlns:viewModels="clr-namespace:Vidio.App.ViewModels"
              mc:Ignorable="d" d:DesignWidth="150" d:DesignHeight="300"
-             xmlns:vm="using:Videio.App.ViewModels"
-             x:Class="Videio.App.Views.StreamView">
+             x:Class="Vidio.App.Views.StreamView">
 
   <Design.DataContext>
-    <vm:StreamViewModel/>
+    <viewModels:StreamViewModel/>
   </Design.DataContext>
 
   <UserControl.Styles>

@@ -1,8 +1,7 @@
-﻿using ReactiveUI;
-using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using ReactiveUI;
 
-namespace Videio.App.ViewModels
+namespace Vidio.App.ViewModels
 {
     public class SelectableButtonViewModel<T> : ViewModelBase
     {
