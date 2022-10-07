@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Videio", "Videio\Videio.csproj", "{812A409A-B682-4D76-BA3C-0AA4BE12AF14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vidio", "Vidio\Vidio.csproj", "{812A409A-B682-4D76-BA3C-0AA4BE12AF14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Videio.App", "Videio.App\Videio.App.csproj", "{3F45ABC7-082D-4B25-9165-85D7A64C3361}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vidio.App", "Vidio.App\Vidio.App.csproj", "{3F45ABC7-082D-4B25-9165-85D7A64C3361}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

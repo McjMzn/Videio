@@ -30,7 +30,7 @@
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Videio\Videio.csproj" />
+    <ProjectReference Include="..\Vidio\Vidio.csproj" />
   </ItemGroup>
   <ItemGroup>
     <UpToDateCheckInput Remove="ViewModels\SelectableButton.axaml" />
