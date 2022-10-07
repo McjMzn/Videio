@@ -61,7 +61,13 @@
     <Border Padding="5" Background="Black" Margin="10" CornerRadius="4">
       <ItemsControl Foreground="White" FontFamily="System">
         <WrapPanel>
-          <TextBlock Text="{Binding FfmpegArguments}" />
+          <TextBox
+            Text="{Binding FfmpegArguments}"
+            Foreground="White"
+            Background="Black"
+            FontFamily="Consolas"
+            IsReadOnly="True"
+          />
         </WrapPanel>
       </ItemsControl>
     </Border>
